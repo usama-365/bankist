@@ -29,35 +29,41 @@ const account1 = {
     interestRate: 1.2,
     pin: 4444,
   };
+const accounts = [account1, account2, account3, account4];
 
 // DOM Elements
 const // Header
-  welcomeMessageElm = document.querySelector(".welcome-msg"),
-  usernameInputElm = document.querySelector(".user-input"),
-  pinInputElm = document.querySelector(".pin-input"),
-  btnLoginElm = document.querySelector(".btn--login"),
+  labelWelcomeMessage = document.querySelector(".welcome-msg"),
+  inputUsername = document.querySelector(".user-input"),
+  inputPin = document.querySelector(".pin-input"),
+  btnLogin = document.querySelector(".btn--login"),
+  // App
+  containerApp = document.querySelector(".app"),
   // Balance
-  balanceAmountElm = document.querySelector(".balance__amount"),
-  balanceDateElm = document.querySelector(".balance__time"),
+  labelBalanceAmount = document.querySelector(".balance__amount"),
+  labelBalanceTime = document.querySelector(".balance__time"),
   // Transactions
-  transactionsElm = document.querySelector(".transactions"),
+  containerTransactions = document.querySelector(".transactions"),
   // Transfers
-  transferToInputElm = document.querySelector(".transfer-to-input"),
-  transferAmountInputElm = document.querySelector(".transfer-amount-input"),
-  btnTransferElm = document.querySelector(".btn--transfer"),
+  inputTransferTo = document.querySelector(".transfer-to-input"),
+  inputTransferAmount = document.querySelector(".transfer-amount-input"),
+  btnTransfer = document.querySelector(".btn--transfer"),
   // Loan
-  loanAmountInputElm = document.querySelector(".loan-amount-input"),
-  btnLoanElm = document.querySelector(".btn--loan"),
+  inputLoanAmount = document.querySelector(".loan-amount-input"),
+  btnLoan = document.querySelector(".btn--loan"),
   // Close account
-  closeAccUsernameInputElm = document.querySelector(".confirm-user-input"),
-  closeAccPasswordInputElm = document.querySelector(".confirm-pin-input"),
-  btnCloseAccElm = document.querySelector(".btn--close-account"),
+  inputConfirmUsernameClose = document.querySelector(".confirm-user-input"),
+  inputConfirmPinClose = document.querySelector(".confirm-pin-input"),
+  btnCloseAccount = document.querySelector(".btn--close-account"),
   // Statistics
-  inAmountElm = document.querySelector(".in-amount"),
-  outAmountElm = document.querySelector(".out-amount"),
-  interestAmountElm = document.querySelector(".interest-amount"),
-  btnSortElm = document.querySelector(".btn--sort"),
-  remainingTimeElm = document.querySelector(".remaining-logout-time");
+  labelInAmount = document.querySelector(".in-amount"),
+  labelOutAmount = document.querySelector(".out-amount"),
+  labelInterestAmount = document.querySelector(".interest-amount"),
+  btnSort = document.querySelector(".btn--sort"),
+  labelRemainingLogoutTime = document.querySelector(".remaining-logout-time");
+
+// Configuration data
+const hideClass = "hidden";
 
 // Removing the reloading of page on submit buttons click (all submit buttons have btn class)
 document
@@ -65,3 +71,34 @@ document
   .forEach((button) =>
     button.addEventListener("click", (event) => event.preventDefault())
   );
+
+/**
+ * Function to display transactions on UI
+ * @param transactions Array of transactions
+ */
+const displayTransactions = (transactions) => {
+  // Empty the element
+  containerTransactions.innerHTML = "";
+  // Add each transaction in the container
+  transactions.forEach((transaction, i) => {
+    // Create a new element representing a transaction
+    const newTransactionElement = `
+    <div class="transaction">
+        <p class="transaction__type transaction__type--${
+          transaction < 0 ? "loss" : "profit"
+        }">${i + 1} ${transaction < 0 ? "withdrawl" : "deposit"}</p>
+        <p class="transaction__date">12/03/2020</p>
+        <p class="transaction__amount">${transaction}</p>
+    </div>`;
+    // Add it in list of transactions
+    containerTransactions.insertAdjacentHTML(
+      "afterbegin",
+      newTransactionElement
+    );
+  });
+};
+
+// TODO. Remove before production, testing block
+let loggedInAccount = accounts.at(0);
+containerApp.classList.remove(hideClass);
+displayTransactions(account1.transactions);
