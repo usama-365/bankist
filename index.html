@@ -1,10 +1,131 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <link href="style.css" rel="stylesheet">
+    <title>Bankist &mdash; Banking made minimialist</title>
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+<header class="header">
+    <p class="welcome">Log in to get started</p>
+    <img alt="Bankist Logo" class="logo" src="img/logo.png">
+    <div class="login">
+        <input class="login__input" placeholder="user" type="text">
+        <input class="login__input" placeholder="pin" type="text">
+        <button class="btn btn__login">&rarr;</button>
+    </div>
+</header>
+<main class="app">
+    <section class="balance">
+        <div>
+            <p class="balance__label">Current balance</p>
+            <p class="balance__sub">As of <span class="balance__time">00/00/0000, 00:00</span></p>
+        </div>
+        <p class="balance__amount">0</p>
+    </section>
+    <section class="rounded--sm transactions">
+        <div class="transaction">
+            <p class="transaction__type transaction__type--profit">8 Deposits</p>
+            <p class="transaction__date">12/03/2020</p>
+            <p class="transaction__amount">1,300,00$</p>
+        </div>
+        <div class="transaction">
+            <p class="transaction__type transaction__type--profit">8 Deposits</p>
+            <p class="transaction__date">12/03/2020</p>
+            <p class="transaction__amount">1,300,00$</p>
+        </div>
+        <div class="transaction">
+            <p class="transaction__type transaction__type--profit">8 Deposits</p>
+            <p class="transaction__date">12/03/2020</p>
+            <p class="transaction__amount">1,300,00$</p>
+        </div>
+        <div class="transaction">
+            <p class="transaction__type transaction__type--profit">8 Deposits</p>
+            <p class="transaction__date">12/03/2020</p>
+            <p class="transaction__amount">1,300,00$</p>
+        </div>
+        <div class="transaction">
+            <p class="transaction__type transaction__type--loss">8 Deposits</p>
+            <p class="transaction__date">12/03/2020</p>
+            <p class="transaction__amount">1,300,00$</p>
+        </div>
+        <div class="transaction">
+            <p class="transaction__type transaction__type--profit">8 Deposits</p>
+            <p class="transaction__date">12/03/2020</p>
+            <p class="transaction__amount">1,300,00$</p>
+        </div>
+        <div class="transaction">
+            <p class="transaction__type transaction__type--profit">8 Deposits</p>
+            <p class="transaction__date">12/03/2020</p>
+            <p class="transaction__amount">1,300,00$</p>
+        </div>
+        <div class="transaction">
+            <p class="transaction__type transaction__type--profit">8 Deposits</p>
+            <p class="transaction__date">12/03/2020</p>
+            <p class="transaction__amount">1,300,00$</p>
+        </div>
+        <div class="transaction">
+            <p class="transaction__type transaction__type--profit">8 Deposits</p>
+            <p class="transaction__date">12/03/2020</p>
+            <p class="transaction__amount">1,300,00$</p>
+        </div>
+
+    </section>
+    <section class="rounded--sm transfer">
+        <h2 class="heading--secondary">Transfer money</h2>
+        <form action="" class="side-panel-form">
+            <input class="side-panel-form__control" id="transfer-to" name="transfer-to" type="text">
+            <input class="side-panel-form__control" id="transfer-amount" name="transfer-amount" type="number">
+            <input class="btn btn__side-panel" type="submit" value="&rarr;">
+            <label class="side-panel-form__label" for="transfer-to">Transfer to</label>
+            <label class="side-panel-form__label" for="transfer-amount">Amount</label>
+        </form>
+    </section>
+    <section class="rounded--sm loan">
+        <h2 class="heading--secondary">Request loan</h2>
+        <form action="" class="side-panel-form">
+            <input class="side-panel-form__control" id="loan-amount" name="loan-amount" type="number">
+            <input class="btn btn__side-panel" type="submit" value="&rarr;">
+            <label class="side-panel-form__label" for="loan-amount">Amount</label>
+        </form>
+    </section>
+    <section class="rounded--sm close">
+        <h2 class="heading--secondary">Close account</h2>
+        <form action="" class="side-panel-form">
+            <input class="side-panel-form__control" id="confirm-user" name="confirm-user" type="text">
+            <input class="side-panel-form__control" id="confirm-pin" name="confirm-pin" type="text">
+            <input class="btn btn__side-panel" type="submit" value="&rarr;">
+            <label class="side-panel-form__label" for="confirm-user">Confirm user</label>
+            <label class="side-panel-form__label" for="confirm-pin">Confirm pin</label>
+        </form>
+    </section>
+    <section class="section-statistics">
+        <div class="statistic">
+            <p class="statistic__name">in</p>
+            <p class="statistic__value in-amount">0</p>
+        </div>
+        <div class="statistic">
+            <p class="statistic__name">out</p>
+            <p class="statistic__value out-amount">0</p>
+        </div>
+        <div class="statistic">
+            <p class="statistic__name">interest</p>
+            <p class="statistic__value interest-amount">0</p>
+        </div>
+        <button class="btn btn__sort">&darr; sort</button>
+    </section>
+    <section class="section-remaining-time">
+        You will be logged out in <span class="remaining-time">00:00</span>
+    </section>
+</main>
 
 </body>
 </html>
