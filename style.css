@@ -22,7 +22,6 @@ body {
     color: #444;
     padding: 2rem;
     font-family: 'Poppins', sans-serif;
-    height: 100vh;
     font-weight: 400;
 }
 
@@ -44,6 +43,14 @@ input::placeholder {
     border-radius: 1rem;
 }
 
+.display--none {
+    display: none;
+}
+
+.hidden {
+    opacity: 0;
+}
+
 .heading--secondary {
     font-size: 1.7rem;
     font-weight: 600;
@@ -57,8 +64,12 @@ input::placeholder {
     padding: 0;
     width: auto;
     cursor: pointer;
+    transition: 0.3s all;
 }
 
+.btn:hover, .btn:link:hover, .btn:visited:hover {
+    color: #666;
+}
 
 /**************************/
 /* Header */
@@ -70,7 +81,7 @@ input::placeholder {
     padding: 0 2rem;
 }
 
-.welcome {
+.welcome-msg {
     font-size: 1.9rem;
     font-weight: 500;
 }
@@ -97,7 +108,7 @@ input::placeholder {
     border-color: #666;
 }
 
-.btn__login {
+.btn--login {
     background-color: transparent;
 }
 
@@ -112,6 +123,7 @@ input::placeholder {
     grid-template-columns: 1.5fr 1fr;
     grid-template-rows: auto repeat(3, 15rem) auto;
     gap: 2rem;
+    transition: 0.3s all;
 }
 
 /* Balance section */
@@ -204,12 +216,15 @@ input::placeholder {
     background-color: #fff;
 }
 
-.btn__side-panel {
+.btn--side-panel {
     border-radius: 0.7rem;
     background-color: #fff;
     font-size: 1.8rem;
     width: 5rem;
+}
 
+.btn--side-panel:hover {
+    background-color: rgba(255, 255, 255, 80%);
 }
 
 .side-panel-form__label {
@@ -263,7 +278,7 @@ input::placeholder {
     color: #f5465d;
 }
 
-.btn__sort {
+.btn--sort {
     font-size: 1.3rem;
     text-transform: uppercase;
     justify-self: baseline;
@@ -277,6 +292,6 @@ input::placeholder {
     font-size: 1.25rem;
 }
 
-.remaining-time {
+.remaining-logout-time {
     font-weight: 600;
 }

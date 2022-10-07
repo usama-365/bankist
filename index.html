@@ -5,8 +5,10 @@
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <link href="style.css" rel="stylesheet">
     <title>Bankist &mdash; Banking made minimialist</title>
+    <!-- Linking Stylesheet and favicon -->
+    <link href="style.css" rel="stylesheet">
+    <link href="img/icon.png" rel="shortcut icon" type="image/x-icon">
     <!-- Google font -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
@@ -14,16 +16,21 @@
 </head>
 <body>
 
+<!-- Header section -->
 <header class="header">
-    <p class="welcome">Log in to get started</p>
+    <p class="welcome-msg">Log in to get started</p>
     <img alt="Bankist Logo" class="logo" src="img/logo.png">
-    <div class="login">
-        <input class="login__input" placeholder="user" type="text">
-        <input class="login__input" placeholder="pin" type="text">
-        <button class="btn btn__login">&rarr;</button>
-    </div>
+    <form class="login">
+        <input class="login__input user-input" id="user" name="user" placeholder="user" type="text">
+        <input class="login__input pin-input" id="pin" name="pin" placeholder="pin" type="text">
+        <label class="display--none" for="user">Username</label>
+        <label class="display--none" for="pin">Password</label>
+        <button class="btn btn--login">&rarr;</button>
+    </form>
 </header>
+<!-- App -->
 <main class="app">
+    <!-- Balance section -->
     <section class="balance">
         <div>
             <p class="balance__label">Current balance</p>
@@ -31,7 +38,9 @@
         </div>
         <p class="balance__amount">0</p>
     </section>
+    <!-- Transactions pane -->
     <section class="rounded--sm transactions">
+        <!-- Transactions list -->
         <div class="transaction">
             <p class="transaction__type transaction__type--profit">8 Deposits</p>
             <p class="transaction__date">12/03/2020</p>
@@ -77,36 +86,41 @@
             <p class="transaction__date">12/03/2020</p>
             <p class="transaction__amount">1,300,00$</p>
         </div>
-
     </section>
+    <!-- Transfer pane -->
     <section class="rounded--sm transfer">
         <h2 class="heading--secondary">Transfer money</h2>
         <form action="" class="side-panel-form">
-            <input class="side-panel-form__control" id="transfer-to" name="transfer-to" type="text">
-            <input class="side-panel-form__control" id="transfer-amount" name="transfer-amount" type="number">
-            <input class="btn btn__side-panel" type="submit" value="&rarr;">
+            <input class="side-panel-form__control transfer-to-input" id="transfer-to" name="transfer-to" type="text">
+            <input class="side-panel-form__control trasnfer-amount-input" id="transfer-amount" name="transfer-amount"
+                   type="number">
+            <button class="btn btn--side-panel btn--transfer">&rarr;</button>
             <label class="side-panel-form__label" for="transfer-to">Transfer to</label>
             <label class="side-panel-form__label" for="transfer-amount">Amount</label>
         </form>
     </section>
+    <!-- Loan Pane -->
     <section class="rounded--sm loan">
         <h2 class="heading--secondary">Request loan</h2>
         <form action="" class="side-panel-form">
-            <input class="side-panel-form__control" id="loan-amount" name="loan-amount" type="number">
-            <input class="btn btn__side-panel" type="submit" value="&rarr;">
+            <input class="side-panel-form__control loan-amount-input" id="loan-amount" name="loan-amount" type="number">
+            <button class="btn btn--side-panel btn--loan">&rarr;</button>
             <label class="side-panel-form__label" for="loan-amount">Amount</label>
         </form>
     </section>
+    <!-- Close account pane -->
     <section class="rounded--sm close">
         <h2 class="heading--secondary">Close account</h2>
         <form action="" class="side-panel-form">
-            <input class="side-panel-form__control" id="confirm-user" name="confirm-user" type="text">
-            <input class="side-panel-form__control" id="confirm-pin" name="confirm-pin" type="text">
-            <input class="btn btn__side-panel" type="submit" value="&rarr;">
+            <input class="side-panel-form__control confirm-user-input" id="confirm-user" name="confirm-user"
+                   type="text">
+            <input class="side-panel-form__control confirm-pin-input" id="confirm-pin" name="confirm-pin" type="text">
+            <button class="btn btn--side-panel btn--close-account">&rarr;</button>
             <label class="side-panel-form__label" for="confirm-user">Confirm user</label>
             <label class="side-panel-form__label" for="confirm-pin">Confirm pin</label>
         </form>
     </section>
+    <!-- Statistics section -->
     <section class="section-statistics">
         <div class="statistic">
             <p class="statistic__name">in</p>
@@ -120,10 +134,11 @@
             <p class="statistic__name">interest</p>
             <p class="statistic__value interest-amount">0</p>
         </div>
-        <button class="btn btn__sort">&darr; sort</button>
+        <button class="btn btn--sort">&darr; sort</button>
     </section>
+    <!-- Remaining time section -->
     <section class="section-remaining-time">
-        You will be logged out in <span class="remaining-time">00:00</span>
+        You will be logged out in <span class="remaining-logout-time">00:00</span>
     </section>
 </main>
 
