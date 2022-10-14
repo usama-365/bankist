@@ -64,6 +64,7 @@ const // Header
 
 // Configuration data
 const hideClass = "hidden";
+const currentLocale = navigator.language;
 
 // Removing the reloading of page on submit buttons click (all submit buttons have btn class)
 document
@@ -77,6 +78,8 @@ document
  * @param transactions Array of transactions
  */
 const displayTransactions = (transactions) => {
+  // Internationalization API
+  const formatCurrency = currencyFormatter().format;
   // Empty the element
   containerTransactions.innerHTML = "";
   // Add each transaction in the container
@@ -88,13 +91,20 @@ const displayTransactions = (transactions) => {
           transaction < 0 ? "loss" : "profit"
         }">${i + 1} ${transaction < 0 ? "withdrawl" : "deposit"}</p>
         <p class="transaction__date">12/03/2020</p>
-        <p class="transaction__amount">${transaction}</p>
+        <p class="transaction__amount">${formatCurrency(transaction)}</p>
     </div>`;
     // Add it in list of transactions
     containerTransactions.insertAdjacentHTML(
       "afterbegin",
       newTransactionElement
     );
+  });
+};
+
+const currencyFormatter = function () {
+  return new Intl.NumberFormat(currentLocale, {
+    currency: "USD",
+    style: "currency",
   });
 };
 
@@ -112,11 +122,13 @@ const displayBalanceAndStatistics = function (transactions) {
     .filter((transactions) => transactions < 0)
     .reduce((sum, current) => sum + current);
   const interest = inAmount + inAmount * 0.15;
+  // Internationalization API
+  const formatCurrency = currencyFormatter().format;
   // Displaying statistics
-  labelBalanceAmount.innerHTML = balance;
-  labelInAmount.innerHTML = inAmount;
-  labelOutAmount.innerHTML = outAmount;
-  labelInterestAmount.innerHTML = interest;
+  labelBalanceAmount.innerHTML = formatCurrency(balance);
+  labelInAmount.innerHTML = formatCurrency(inAmount);
+  labelOutAmount.innerHTML = formatCurrency(outAmount);
+  labelInterestAmount.innerHTML = formatCurrency(interest);
 };
 
 /**
