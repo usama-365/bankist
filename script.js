@@ -206,3 +206,20 @@ btnLoan.addEventListener("click", () => {
     inputLoanAmount.value = "";
   }
 });
+
+// Close account functionality
+btnCloseAccount.addEventListener("click", () => {
+  // Extracting the values
+  const username = inputConfirmUsernameClose.value;
+  const pin = +inputConfirmPinClose.value;
+  // Finding the account
+  const i = accounts.findIndex(
+    (account) => account.username === username && account.pin === pin
+  );
+  const accountToRemove = accounts[i];
+  // Removing the account
+  if (accountToRemove && accountToRemove !== loggedInAccount) {
+    accounts.splice(i, 1);
+    inputConfirmUsernameClose.value = inputConfirmPinClose.value = "";
+  }
+});
