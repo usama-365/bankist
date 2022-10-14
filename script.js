@@ -75,6 +75,14 @@ document
   );
 
 /**
+ * Function to perform logout
+ */
+const logout = function () {
+  containerApp.classList.add(hideClass);
+  loggedInAccount = null;
+};
+
+/**
  * Function to display transactions on UI
  * @param transactions Array of transactions
  */
@@ -169,6 +177,8 @@ btnLogin.addEventListener("click", () => {
     updateUI(loggedInAccount);
     // Clearing form fields
     inputUsername.value = inputPin.value = "";
+  } else {
+    logout();
   }
 });
 
