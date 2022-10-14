@@ -4,7 +4,19 @@
 const account1 = {
     user: "M. Usama",
     transactions: [
-      -65, 915, 550, 420, 160, 505, 370, 890, 295, 80, 130, 905, 275, 715, 810,
+      { date: "2022-10-01", amount: 905 },
+      { date: "2022-10-02", amount: 165 },
+      { date: "2022-10-03", amount: -5 },
+      { date: "2022-10-04", amount: 15 },
+      { date: "2022-10-05", amount: 945 },
+      { date: "2022-10-06", amount: -60 },
+      { date: "2022-10-07", amount: 245 },
+      { date: "2022-10-08", amount: 690 },
+      { date: "2022-10-09", amount: 105 },
+      { date: "2022-10-10", amount: 835 },
+      { date: "2022-10-11", amount: 460 },
+      { date: "2022-10-12", amount: 500 },
+      { date: "2022-10-13", amount: 645 },
     ],
     interestRate: 1.6,
     pin: 1111,
@@ -12,20 +24,60 @@ const account1 = {
   account2 = {
     user: "Hassan Asim",
     transactions: [
-      905, 165, -5, 615, 945, -60, 245, 690, 105, 835, 460, 500, 645,
+      { date: "2022-10-01", amount: 905 },
+      { date: "2022-10-02", amount: 165 },
+      { date: "2022-10-03", amount: -5 },
+      { date: "2022-10-04", amount: 15 },
+      { date: "2022-10-05", amount: 945 },
+      { date: "2022-10-06", amount: -60 },
+      { date: "2022-10-07", amount: 245 },
+      { date: "2022-10-08", amount: 690 },
+      { date: "2022-10-09", amount: 105 },
+      { date: "2022-10-10", amount: 835 },
+      { date: "2022-10-11", amount: 460 },
+      { date: "2022-10-12", amount: 500 },
+      { date: "2022-10-13", amount: 645 },
     ],
     interestRate: 1.3,
     pin: 2222,
   },
   account3 = {
     user: "Namir Rehman",
-    transactions: [985, 820, -55, 225, 245, 350, 300, 5, 170, 770],
+    transactions: [
+      { date: "2022-10-01", amount: 905 },
+      { date: "2022-10-02", amount: 165 },
+      { date: "2022-10-03", amount: -5 },
+      { date: "2022-10-04", amount: 15 },
+      { date: "2022-10-05", amount: 945 },
+      { date: "2022-10-06", amount: -60 },
+      { date: "2022-10-07", amount: 245 },
+      { date: "2022-10-08", amount: 690 },
+      { date: "2022-10-09", amount: 105 },
+      { date: "2022-10-10", amount: 835 },
+      { date: "2022-10-11", amount: 460 },
+      { date: "2022-10-12", amount: 500 },
+      { date: "2022-10-13", amount: 645 },
+    ],
     interestRate: 1.4,
     pin: 3333,
   },
   account4 = {
     user: "Muhammad Abdullah",
-    transactions: [325, -40, 990, 580, 865, 290],
+    transactions: [
+      { date: "2022-10-01", amount: 905 },
+      { date: "2022-10-02", amount: 165 },
+      { date: "2022-10-03", amount: -5 },
+      { date: "2022-10-04", amount: 15 },
+      { date: "2022-10-05", amount: 945 },
+      { date: "2022-10-06", amount: -60 },
+      { date: "2022-10-07", amount: 245 },
+      { date: "2022-10-08", amount: 690 },
+      { date: "2022-10-09", amount: 105 },
+      { date: "2022-10-10", amount: 835 },
+      { date: "2022-10-11", amount: 460 },
+      { date: "2022-10-12", amount: 500 },
+      { date: "2022-10-13", amount: 645 },
+    ],
     interestRate: 1.2,
     pin: 4444,
   };
@@ -90,9 +142,12 @@ const logout = function () {
  */
 const displayTransactions = (transactions, sorted = false) => {
   // If sort is required
-  if (sorted) transactions = transactions.slice().sort((a, b) => a - b);
+  if (sorted) {
+    transactions = transactions.slice().sort((a, b) => a.amount - b.amount);
+  }
   // Internationalization API
   const formatCurrency = currencyFormatter().format;
+  const formatDate = dateFormatter().format;
   // Empty the element
   containerTransactions.innerHTML = "";
   // Add each transaction in the container
@@ -101,10 +156,12 @@ const displayTransactions = (transactions, sorted = false) => {
     const newTransactionElement = `
     <div class="transaction">
         <p class="transaction__type transaction__type--${
-          transaction < 0 ? "loss" : "profit"
-        }">${i + 1} ${transaction < 0 ? "withdrawl" : "deposit"}</p>
-        <p class="transaction__date">12/03/2020</p>
-        <p class="transaction__amount">${formatCurrency(transaction)}</p>
+          transaction.amount < 0 ? "loss" : "profit"
+        }">${i + 1} ${transaction.amount < 0 ? "withdrawl" : "deposit"}</p>
+        <p class="transaction__date">${formatDate(
+          new Date(transaction.date)
+        )}</p>
+        <p class="transaction__amount">${formatCurrency(transaction.amount)}</p>
     </div>`;
     // Add it in list of transactions
     containerTransactions.insertAdjacentHTML(
@@ -126,18 +183,39 @@ const currencyFormatter = function () {
 };
 
 /**
+ * Returns a DateTimeFormat object to format the currencies
+ * @param includeTime Whether to include time in date or not
+ * @returns {Intl.DateTimeFormat} DateTimeFormat object to format the dates
+ */
+const dateFormatter = function (includeTime = false) {
+  const options = {
+    month: "2-digit",
+    year: "numeric",
+    day: "2-digit",
+  };
+  if (includeTime) {
+    options.hour = "2-digit";
+    options.minute = "2-digit";
+  }
+  return new Intl.DateTimeFormat(currentLocale, options);
+};
+
+/**
  * Function to display balance and statistics on UI
  * @param transactions Array of transactions
  */
 const displayBalanceAndStatistics = function (transactions) {
   // Calculating statistics
-  const balance = transactions.reduce((sum, current) => sum + current);
+  const balance = transactions.reduce(
+    (sum, current) => sum + current.amount,
+    0
+  );
   const inAmount = transactions
-    .filter((transaction) => transaction > 0)
-    .reduce((sum, current) => sum + current);
+    .filter((transaction) => transaction.amount > 0)
+    .reduce((sum, current) => sum + current.amount, 0);
   const outAmount = transactions
-    .filter((transactions) => transactions < 0)
-    .reduce((sum, current) => sum + current);
+    .filter((transactions) => transactions.amount < 0)
+    .reduce((sum, current) => sum + current.amount, 0);
   const interest = inAmount + inAmount * 0.15;
   // Internationalization API
   const formatCurrency = currencyFormatter().format;
@@ -153,8 +231,13 @@ const displayBalanceAndStatistics = function (transactions) {
  * @param account Current logged in account
  */
 const updateUI = function (account) {
+  // Update the transactions, balance and statistics
   displayTransactions(account.transactions);
   displayBalanceAndStatistics(account.transactions);
+  // Update the time
+  labelBalanceTime.innerHTML = dateFormatter(true).format(new Date());
+  // Update the label
+  labelWelcomeMessage.innerHTML = `Welcome ${loggedInAccount.user}!`;
 };
 
 // Adding initials of each user as username
@@ -194,13 +277,15 @@ btnTransfer.addEventListener("click", () => {
   // Calculating required values
   const toAccount = accounts.find((account) => account.username === transferTo);
   const balance = loggedInAccount.transactions.reduce(
-    (sum, current) => sum + current
+    (sum, current) => sum + current.amount,
+    0
   );
   // If the transaction is valid
-  if (transferAmount < balance && toAccount) {
+  if (transferAmount < balance && toAccount && toAccount !== loggedInAccount) {
     // Perform the transactions
-    toAccount.transactions.push(transferAmount);
-    loggedInAccount.transactions.push(-transferAmount);
+    const date = new Date();
+    toAccount.transactions.push({ amount: transferAmount, date: date });
+    loggedInAccount.transactions.push({ amount: -transferAmount, date: date });
     // Update the UI and clear the fields
     updateUI(loggedInAccount);
     inputTransferTo.value = inputTransferAmount.value = "";
@@ -214,7 +299,7 @@ btnLoan.addEventListener("click", () => {
   // If the amount is valid
   if (loanAmount > 0) {
     // Perform the transaction and update the UI
-    loggedInAccount.transactions.push(loanAmount);
+    loggedInAccount.transactions.push({ amount: loanAmount, date: new Date() });
     updateUI(loggedInAccount);
     // Clear the form fields
     inputLoanAmount.value = "";
