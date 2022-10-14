@@ -65,6 +65,7 @@ const // Header
 // Configuration data
 const hideClass = "hidden";
 const currentLocale = navigator.language;
+let loggedInAccount = null;
 
 // Removing the reloading of page on submit buttons click (all submit buttons have btn class)
 document
@@ -101,6 +102,10 @@ const displayTransactions = (transactions) => {
   });
 };
 
+/**
+ * Returns a NumberFormat object to format the currencies
+ * @returns {Intl.NumberFormat} Formats in USD currency
+ */
 const currencyFormatter = function () {
   return new Intl.NumberFormat(currentLocale, {
     currency: "USD",
@@ -151,20 +156,39 @@ accounts.forEach((account) => {
 
 // Login functionality
 btnLogin.addEventListener("click", () => {
-  // Extracting username and password
+  // Extracting username and password and authenticated
   const username = inputUsername.value;
   const pin = Number(inputPin.value);
-
-  // Validating
-  const loggedInAccount = accounts.find(
+  loggedInAccount = accounts.find(
     (account) => account.username === username && account.pin === pin
   );
-
-  // Logging in
+  // If the credentials are valid
   if (loggedInAccount) {
+    // Display the UI
     containerApp.classList.remove(hideClass);
     updateUI(loggedInAccount);
     // Clearing form fields
     inputUsername.value = inputPin.value = "";
+  }
+});
+
+// Money transfer functionality
+btnTransfer.addEventListener("click", () => {
+  // Extracting required values
+  const transferTo = inputTransferTo.value;
+  const transferAmount = Number(inputTransferAmount.value);
+  // Calculating required values
+  const toAccount = accounts.find((account) => account.username === transferTo);
+  const balance = loggedInAccount.transactions.reduce(
+    (sum, current) => sum + current
+  );
+  // If the transaction is valid
+  if (transferAmount < balance && toAccount) {
+    // Perform the transactions
+    toAccount.transactions.push(transferAmount);
+    loggedInAccount.transactions.push(-transferAmount);
+    // Update the UI and clear the fields
+    updateUI(loggedInAccount);
+    inputTransferTo.value = inputTransferAmount.value = "";
   }
 });
