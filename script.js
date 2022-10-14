@@ -119,6 +119,8 @@ const hideClass = "hidden";
 const currentLocale = navigator.language;
 let loggedInAccount = null;
 let sorted = false;
+let countdownTimer = null;
+const logoutTimeSeconds = 10 * 60;
 
 // Removing the reloading of page on submit buttons click (all submit buttons have btn class)
 document
@@ -133,6 +135,8 @@ document
 const logout = function () {
   containerApp.classList.add(hideClass);
   loggedInAccount = null;
+  clearInterval(countdownTimer);
+  labelWelcomeMessage.innerHTML = "Log in to get started";
 };
 
 /**
@@ -264,6 +268,20 @@ btnLogin.addEventListener("click", () => {
     updateUI(loggedInAccount);
     // Clearing form fields
     inputUsername.value = inputPin.value = "";
+    // Starting the timer
+    let remainingSeconds = logoutTimeSeconds;
+    countdownTimer = setInterval(() => {
+      --remainingSeconds;
+      if (remainingSeconds <= 0) {
+        logout();
+      } else {
+        const minutes = Math.trunc(remainingSeconds / 60);
+        const seconds = Math.trunc(remainingSeconds % 60);
+        labelRemainingLogoutTime.innerHTML = `${minutes
+          .toString()
+          .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+      }
+    }, 1000);
   } else {
     logout();
   }
