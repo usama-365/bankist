@@ -158,7 +158,7 @@ accounts.forEach((account) => {
 btnLogin.addEventListener("click", () => {
   // Extracting username and password and authenticated
   const username = inputUsername.value;
-  const pin = Number(inputPin.value);
+  const pin = +inputPin.value;
   loggedInAccount = accounts.find(
     (account) => account.username === username && account.pin === pin
   );
@@ -176,7 +176,7 @@ btnLogin.addEventListener("click", () => {
 btnTransfer.addEventListener("click", () => {
   // Extracting required values
   const transferTo = inputTransferTo.value;
-  const transferAmount = Number(inputTransferAmount.value);
+  const transferAmount = +inputTransferAmount.value;
   // Calculating required values
   const toAccount = accounts.find((account) => account.username === transferTo);
   const balance = loggedInAccount.transactions.reduce(
@@ -190,5 +190,19 @@ btnTransfer.addEventListener("click", () => {
     // Update the UI and clear the fields
     updateUI(loggedInAccount);
     inputTransferTo.value = inputTransferAmount.value = "";
+  }
+});
+
+// Request loan functionality
+btnLoan.addEventListener("click", () => {
+  // Extracting loan amount
+  const loanAmount = +inputLoanAmount.value;
+  // If the amount is valid
+  if (loanAmount > 0) {
+    // Perform the transaction and update the UI
+    loggedInAccount.transactions.push(loanAmount);
+    updateUI(loggedInAccount);
+    // Clear the form fields
+    inputLoanAmount.value = "";
   }
 });
