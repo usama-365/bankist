@@ -66,6 +66,7 @@ const // Header
 const hideClass = "hidden";
 const currentLocale = navigator.language;
 let loggedInAccount = null;
+let sorted = false;
 
 // Removing the reloading of page on submit buttons click (all submit buttons have btn class)
 document
@@ -85,8 +86,11 @@ const logout = function () {
 /**
  * Function to display transactions on UI
  * @param transactions Array of transactions
+ * @param sorted Whether to display in a sorted manner or not
  */
-const displayTransactions = (transactions) => {
+const displayTransactions = (transactions, sorted = false) => {
+  // If sort is required
+  if (sorted) transactions = transactions.slice().sort((a, b) => a - b);
   // Internationalization API
   const formatCurrency = currencyFormatter().format;
   // Empty the element
@@ -232,4 +236,10 @@ btnCloseAccount.addEventListener("click", () => {
     accounts.splice(i, 1);
     inputConfirmUsernameClose.value = inputConfirmPinClose.value = "";
   }
+});
+
+// Sort functionality
+btnSort.addEventListener("click", () => {
+  sorted = !sorted;
+  displayTransactions(loggedInAccount.transactions, sorted);
 });
